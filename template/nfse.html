@@ -1,0 +1,465 @@
+<style>
+  @page {
+    margin: 5mm;
+    margin-header: 0mm;
+    margin-footer: 0mm;
+  }
+
+  .border-full {
+    border: 1px solid #000;
+  }
+
+  .margin-left {
+    margin-left: 10px;
+  }
+
+  .margin-top {
+    margin-top: 5px;
+  }
+  .border-left {
+    border-left: 1px solid #000;
+  }
+
+  .border-right {
+    border-right: 1px solid #000;
+  }
+
+  .border-top {
+    border-top: 1px solid #000;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #000;
+  }
+
+  .border-bottom-strong {
+    border-bottom: 4px solid #ccc;
+  }
+
+  table {
+    border: 0;
+    border-collapse: collapse;
+  }
+
+  body {
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .style-1 {
+    font-size: 14px;
+  }
+
+  .style-2 {
+    font-size: 12px;
+  }
+
+  .style-3 {
+    font-size: 10px;
+  }
+
+  .style-4 {
+    font-size: 18px;
+  }
+
+  .style-5 {
+    font-size: 10px;
+  }
+
+  .style-6 {
+    font-size: 22px;
+  }
+
+  .style-9 {
+    font-size: 9px;
+  }
+
+  .style-91 {
+    font-size: 8px;
+  }
+  .style-10 {
+    font-size: 10px;
+  }
+
+  .style-11 {
+    font-size: 11px;
+  }
+
+  .height-50 {
+    height: 50px;
+  }
+
+  .height-40 {
+    height: 40px;
+  }
+
+  .height-30 {
+    height: 30px;
+  }
+  .height-20 {
+    height: 20px;
+  }
+
+  .height-60 {
+    height: 60px;
+  }
+
+  .background-selo {
+    background-image: url("{{%url-selo}}");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .padding {
+    padding: 10px;
+  }
+  .descNFS {
+    min-height: 100px;
+    padding: 15px 0px;
+  }
+</style>
+
+<div class="border-full">
+  <table>
+    <tr>
+      <td>
+        <img
+          src="{{%logo}}"
+          width="50px"
+          height="50px"
+          style="padding: 10px"
+          alt="logo"
+        />
+      </td>
+      <td>
+        <table style="width: 100%; padding: 10px; margin-left: 10px">
+          <tr>
+            <td class="style-1 height-20">
+              <b> Prefeitura Municipal de Ribeirão Preto - SP </b>
+            </td>
+          </tr>
+          <tr>
+            <td class="style-2">
+              <p>Secretaria Municipal de Fazenda</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="style-3">
+              <p>
+                Fone: (16) 3968-6120 -
+                https://www.ribeiraopreto.sp.gov.br/portal
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td class="border-right border-left margin-left">
+        <img src="{{%logoNota}}" width="120px" height="50px" alt="logo" />
+      </td>
+      <td>
+        <p class="style-9">Série do Documento</p>
+        <p class="style-2 height-20">
+          Nota Fiscal de Servi&ccedil;os Eletr&ocirc;nica - NFS-e
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="border-full margin-top">
+  <table>
+    <tr>
+      <td style="padding: 20px">
+        <p class="style-1">
+          <b> {{%emirazao}} </b>
+        </p>
+        <p class="style-2">
+          {{%EnderecoEmi}} <br />
+          CEP: {{%EnderecoEmiCep}}- Fone {{%FoneEmi}} - {{%EnderecoEmiCidade}}
+          <br />
+          {{%email}} <br />
+
+          Inscri&ccedil;&atilde;o Municipal {{%inscMuniEmi}} - CPF/CNPJ
+          {{%emicnpj}}
+        </p>
+      </td>
+      <td style="margin-left: 150px; padding: 10px">
+        <img
+          src="{{%img}}"
+          width="100px"
+          height="100px"
+          style="margin-left: 150px"
+        />
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="border-full margin-top">
+  <b>&nbsp;Identifica&ccedil;&atilde;o da Nota Fiscal Eletrônica</b>
+</div>
+<div class="border-right border-left">
+  <table>
+    <tr>
+      <td>
+        <tr>
+          <td class="border-right" style="padding: 10px">
+            <p class="style-9">Natureza da Opera&ccedil;&atilde;o</p>
+            <p class="style-10">
+              <b> {{%naturesaop}} </b>
+            </p>
+          </td>
+          <td class="border-right" style="padding: 10px">
+            <p class="style-9">Per&iacute;odo de Compet&ecirc;ncia</p>
+            <p class="style-10">
+              <b> {{%dhcomp}} </b>
+            </p>
+          </td>
+          <td class="border-right" style="padding: 10px">
+            <p class="style-9">Data de Gera&ccedil;&atilde;o da NFS-e</p>
+            <p class="style-10">
+              <b> {{%dhEmisec}} </b>
+            </p>
+          </td>
+          <td class="border-right" style="padding: 10px">
+            <p class="style-9">
+              C&oacute;digo Verifica&ccedil;&atilde;o de Autenticidade
+            </p>
+            <p class="style-10">
+              <b>{{%codveri}}</b>
+            </p>
+          </td>
+          <td align="center">
+            <p class="style-9">N&uacute;mero da Nota Fiscal</p>
+
+            <p class="style-6">
+              <b>{{%nfsserie}}</b>
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="border-right border-top" style="padding: 10px">
+            <p class="style-9">RPS n&uacute;mero</p>
+            <p class="style-10">
+              <b> {{%nfenum}} </b>
+            </p>
+          </td>
+          <td class="border-right border-top" style="padding: 10px">
+            <p class="style-9">S&eacute;rie do RPS</p>
+            <p class="style-10">
+              <b> {{%serie}} </b>
+            </p>
+          </td>
+          <td class="border-top" style="padding: 10px">
+            <p class="style-9">Data Emiss&atilde;o da RPS</p>
+            <p class="style-10">
+              <b> {{%dhemi}} </b>
+            </p>
+          </td>
+          <td class="border-right border-top"></td>
+        </tr>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="border-full">
+  <p class="style-10" style="text-align: center">
+    Consulte a autenticidade deste documento acessando o site:
+    https://www.issnetonline.com.br/ribeiraopreto/online
+  </p>
+</div>
+<div class="border-full" style="margin-top: 2px; padding: 5px">
+  <b>Dados do Tomador de Servi&ccedil;os</b>
+  <table style="width: 100%">
+    <tr>
+      <td class="border-top border-right border-bottom">
+        <p class="style-9">CPF/CNPJ</p>
+        <p class="style-2">
+          <b>{{%destCNPJ}}</b>
+        </p>
+      </td>
+      <td class="border-top border-right border-bottom">
+        <p class="style-9">Inscri&ccedil;&atilde;o Municipal</p>
+        <p class="style-2">
+          <b> {{%inscMuniDest}} </b>
+        </p>
+      </td>
+      <td class="border-top border-bottom" style="width: 70%">
+        <p class="style-9">Raz&#227;o Social</p>
+        <p class="style-2">
+          <b>{{%destrazao}}</b>
+        </p>
+      </td>
+      <td class="border-top"></td>
+    </tr>
+    <tr style="width: 100%">
+      <td class="border-right border-bottom">
+        <p class="style-9">Endere&ccedil;o</p>
+        <p class="style-2">{{%EnderecoDest}}</p>
+      </td>
+      <td class="border-right border-bottom">
+        <p class="style-9">Numero</p>
+        <p class="style-2">{{%EnderecoDestNumero}}</p>
+      </td>
+      <td class="border-right border-bottom" style="width: 50%">
+        <p class="style-9">Complemento</p>
+        <p class="style-2">{{%EnderecoDestComplemento}}</p>
+      </td>
+      <td class="border-top" style="width: 20%">
+        <p class="style-9">Bairro</p>
+        <p class="style-2">{{%EnderecoDestBairro}}</p>
+      </td>
+    </tr>
+    <tr style="width: 100%">
+      <td class="border-right">
+        <p class="style-9">CEP</p>
+        <p class="style-2">{{%EnderecoDestCep}}</p>
+      </td>
+      <td class="border-right">
+        <p class="style-9">Cidade / UF</p>
+        <p class="style-2">{{%EnderecoDestCidade}}</p>
+      </td>
+      <td class="border-right" style="width: 50%">
+        <p class="style-9">Telefone</p>
+        <p class="style-2">{{%FoneDest}}</p>
+      </td>
+      <td class="border-top">
+        <p class="style-9">Email</p>
+        <p class="style-2">{{%EmailDest}}</p>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="border-full" style="margin-top: 2px; padding: 5px">
+  <b>Local de Servi&ccedil;os</b>
+</div>
+<div class="border-right border-left border-bottom" style="padding: 5px">
+  <p class="style-2">{{%EnderecoDestCidade}}</p>
+</div>
+
+<div class="border-full" style="margin-top: 2px; padding: 5px">
+  <b>Descri&ccedil;&atilde;o dos Servi&ccedil;os</b>
+</div>
+<div class="border-right border-left border-bottom">
+  <p class="style-2" style="padding: 10px; height: 100px">{{%Discriminacao}}</p>
+</div>
+<div class="border-full">
+  <b>Imposto Sobre Servi&ccedil;os de Qualquer Natureza - ISSQN</b>
+  <table>
+    <tr style="width: 100%">
+      <td class="border-right border-top">
+        <p class="style-9">Atividade do Municipio</p>
+        <p class="style-2">{{%codTrib}}</p>
+      </td>
+      <td class="border-right border-top">
+        <p class="style-9">Aliquota</p>
+        <p class="style-2">{{%Aliquota}}</p>
+      </td>
+      <td class="border-right border-top">
+        <p class="style-9">Item da LC1116/2003</p>
+        <p class="style-2">{{%ItemListaServico}}</p>
+      </td>
+      <td class="border-top" style="width: 50%">
+        <p class="style-9">C&ocirc;d. Nacional Atividade Econ&ograve;mica</p>
+        <p class="style-2">{{%CodigoCnae}}</p>
+      </td>
+      <td class="border-top"></td>
+      <td class="border-top"></td>
+      <td class="border-top"></td>
+    </tr>
+    <tr>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">Valor Total dos Servi&ccedil;os</p>
+        <p class="style-2">R$ {{%valorServ}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">Desconto Incondicionado</p>
+        <p class="style-2">R$ {{%valorIncod}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">Dedu&ccedil;&otilde;es Base C&agrave;lculo</p>
+        <p class="style-2">R$ {{%valorDedu}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">Base C&agrave;lculo</p>
+        <p class="style-2">R$ {{%valorBasecalc}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">Total do ISSQN</p>
+        <p class="style-2">R$ {{%valorISS}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">ISSQN Retido</p>
+        <p class="style-2">{{%IssRetido}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">Desconto Condicionado</p>
+        <p class="style-2">R$ {{%valorCond}}</p>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="border-full">
+  <b>Reten&ccedil;&otilde;es de Impostos</b>
+  <table>
+    <tr>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">PIS</p>
+        <p class="style-2">R$ {{%valorPis}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">CONFINS</p>
+        <p class="style-2">R$ {{%valorConfins}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">INSS</p>
+        <p class="style-2">R$ {{%valorInss}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">IRRF</p>
+        <p class="style-2">R$ {{%valorIrrf}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 20%">
+        <p class="style-9">CSLL</p>
+        <p class="style-2">R$ {{%valorCsll}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 30%">
+        <p class="style-9">Outras Reten&ccedil;&otilde;es</p>
+        <p class="style-2">R$ {{%OutrosR}}</p>
+      </td>
+      <td class="border-right border-top" style="width: 40%">
+        <p class="style-9">ISSQN</p>
+        <p class="style-2">R$ {{%valorISSR}}</p>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="border-full">
+  <table>
+    <tr>
+      <td style="width: 30%">
+        <b>Valor L&igrave;quido da Nota Fiscal</b>
+      </td>
+      <td style="width: 6%"></td>
+      <td style="width: 5%"></td>
+      <td class="border-right" style="width: 10%"></td>
+      <td class="border-left" style="width: 10%"></td>
+      <td style="width: 10%"></td>
+
+      <td style="width: 15%; text-align: right">
+        <p>
+          <b>R$ {{%valorLiquido}}</b>
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="border-full" style="padding: 5px">
+  <b>Informa&ccedil;&otilde;es Complementares</b>
+</div>
+<div class="border-right border-left border-bottom">
+  <p class="style-2" style="padding: 10px; height: 50px">
+    {{%OutrasInformacoes}}
+  </p>
+</div>
