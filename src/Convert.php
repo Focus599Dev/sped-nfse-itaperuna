@@ -1,10 +1,10 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET;
+namespace NFePHP\NFSe\Itaperuna;
 
 use NFePHP\Common\Strings;
-use NFePHP\NFSe\ISSNET\Exception\DocumentsException;
-use NFePHP\NFSe\ISSNET\Factories\Parser;
+use NFePHP\NFSe\Itaperuna\Exception\DocumentsException;
+use NFePHP\NFSe\Itaperuna\Factories\Parser;
 
 class Convert
 {

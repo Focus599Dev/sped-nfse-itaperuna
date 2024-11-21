@@ -7,15 +7,15 @@
 	<xsd:include schemaLocation="tipos_complexos.xsd"/>
 	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"
 		schemaLocation="xmldsig-core-schema20020212.xsd" />
-  <xsd:element name="ConsultarLoteRpsEnvio">
-		<xsd:complexType>
-			<xsd:sequence>
-				<xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa"
-					minOccurs="1" maxOccurs="1" />
-				<xsd:element name="Protocolo" type="tsNumeroProtocolo"
-					minOccurs="1" maxOccurs="1" />
-			</xsd:sequence>
-		</xsd:complexType>
-	</xsd:element>
+		<xsd:element name="ConsultarLoteRpsEnvio">
+			<xsd:complexType>
+				<xsd:sequence>
+					<xsd:element name="Prestador" type="tcIdentificacaoPrestador"
+						minOccurs="1" maxOccurs="1" />
+					<xsd:element name="Protocolo" type="tsNumeroProtocolo"
+						minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:element>
 
 </xsd:schema>

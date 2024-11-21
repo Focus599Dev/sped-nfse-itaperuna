@@ -1,8 +1,8 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET\Factories;
+namespace NFePHP\NFSe\Itaperuna\Factories;
 
-use NFePHP\NFSe\ISSNET\Make;
+use NFePHP\NFSe\Itaperuna\Make;
 use NFePHP\Common\Strings;
 
 class Parser
@@ -23,7 +23,7 @@ class Parser
 
         $ver = str_replace('.', '', $version);
 
-        $path = realpath(__DIR__ . "/../../storage/txtstructure301.json");
+        $path = realpath(__DIR__ . "/../../storage/txtstructure202.json");
 
         $this->std = new \stdClass();
 
@@ -185,7 +185,6 @@ class Parser
     {
         $this->valores = (object) array_merge((array) $this->valores, (array) $std);
 
-        $this->make->buildValores($this->valores);
     }
 
     private function nEntity($std)
@@ -194,12 +193,16 @@ class Parser
         
         $this->servico = (object) array_merge((array) $this->servico, (array) $this->valores);
 
-        $this->make->buildServico($this->servico);
     }
 
     private function wEntity($std)
     {
+
         $this->infRps = (object) array_merge((array) $this->infRps, (array) $std);
+
+        $this->make->buildValores($this->valores);
+
+        $this->make->buildServico($this->servico);
 
         $this->make->buildInfRps($this->infRps);
     }

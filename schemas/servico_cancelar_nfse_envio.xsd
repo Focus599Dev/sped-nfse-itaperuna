@@ -7,12 +7,11 @@
 	<xsd:include schemaLocation="tipos_complexos.xsd"/>
 	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"
 		schemaLocation="xmldsig-core-schema20020212.xsd" />
-	<xsd:element name="CancelarNfseEnvio">
-		<xsd:complexType>
-			<xsd:sequence>
-				<xsd:element name="Pedido" type="tcPedidoCancelamento"
-					minOccurs="1" maxOccurs="1" />			
-			</xsd:sequence>
-		</xsd:complexType>
-	</xsd:element>
+		<xsd:element name="CancelarNfseEnvio">
+			<xsd:complexType>
+				<xsd:sequence>
+					<xsd:element name="Pedido" type="tcPedidoCancelamento" />
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:element>
 </xsd:schema>

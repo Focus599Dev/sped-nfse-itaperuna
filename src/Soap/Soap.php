@@ -1,11 +1,9 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET\Soap;
+namespace NFePHP\NFSe\Itaperuna\Soap;
 
-use NFePHP\Common\Certificate;
-use NFePHP\Common\Exception\InvalidArgumentException;
 use NFePHP\NFSe\GINFE\Exception\SoapException;
-use NFePHP\NFSe\ISSNET\Soap\SoapBase;
+use NFePHP\NFSe\Itaperuna\Soap\SoapBase;
 
 class Soap extends SoapBase{ 
 
@@ -20,13 +18,16 @@ class Soap extends SoapBase{
         $soapheader = null
     ) {
 
-        $this->validadeEf();
+        // $this->validadeEf();
 
         $headers = array(
-            "Content-Type: application/soap+xml; charset='utf-8'",
-            "SOAPAction: \"$operation\"",
-            "Content-Length: " . strlen($request)
-        ); 
+            "Content-type: text/xml;charset=\"utf-8\"",
+            "Accept: text/xml",
+            "Cache-Control: no-cache",
+            "Pragma: no-cache",
+            "SOAPAction: " . $operation,
+            "Content-length: " . strlen($request),
+        );
 
         try {
             
@@ -56,7 +57,7 @@ class Soap extends SoapBase{
             
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
             
-            curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+            curl_setopt($ch, CURLOPT_SSLVERSION, 0);
             
             curl_setopt($ch, CURLOPT_SSLCERT, $this->tempdir . $this->certfile);
             
@@ -85,7 +86,7 @@ class Soap extends SoapBase{
             $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             
             $this->soaperror = curl_error($ch);
-            
+
             $headsize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
             
             curl_close($ch);
