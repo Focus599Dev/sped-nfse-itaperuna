@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET;
+namespace NFePHP\NFSe\Itaperuna;
 
 use NFePHP\Common\DOMImproved as Dom;
 use stdClass;
@@ -29,7 +29,7 @@ class Make
 
         $this->loteRps = $this->dom->createElement('LoteRps');
         
-        $this->loteRps->setAttribute('versao', '2.04');
+        $this->loteRps->setAttribute('versao', '2.02');
 
         $this->enviarLoteRpsEnvio->appendChild($this->loteRps);
 
@@ -55,7 +55,7 @@ class Make
 
         $this->CpfCnpjTomador = $this->dom->createElement('CpfCnpj');
 
-        $this->Tomador = $this->dom->createElement('TomadorServico');
+        $this->Tomador = $this->dom->createElement('Tomador');
 
         $this->IdentificacaoTomador = $this->dom->createElement('IdentificacaoTomador');
 
@@ -64,11 +64,8 @@ class Make
         $this->RegimeEspecialTributacao = $this->dom->createElement('RegimeEspecialTributacao');
         
         $this->OptanteSimplesNacional = $this->dom->createElement('OptanteSimplesNacional');
-        
+
         $this->IncentivoFiscal = $this->dom->createElement('IncentivoFiscal');
-        
-        $this->InformacoesComplementares = $this->dom->createElement('InformacoesComplementares');
-        
     }
 
     public function getXML()
@@ -121,7 +118,7 @@ class Make
 
         $this->infRps->appendChild($this->Tomador);
 
-        $items = $this->infRps->getElementsByTagName('TomadorServico');
+        $items = $this->infRps->getElementsByTagName('Tomador');
 
         $firstItem = $items->item(0);
 
@@ -149,12 +146,6 @@ class Make
 
        }
 
-        if ($this->InformacoesComplementares->nodeValue != ''){
-
-             $this->infRps->appendChild($this->InformacoesComplementares);
-
-        }
-
         $this->xml = $this->dom->saveXML();
 
         return $this->xml;
@@ -170,13 +161,8 @@ class Make
             true,
             "Número do Lote de RPS"
         );
-
-        $prestador = $this->dom->createElement('Prestador');
+        
         $cpfCnpj = $this->dom->createElement('CpfCnpj');
-        
-        $prestador->appendChild($cpfCnpj);
-        $this->loteRps->appendChild($prestador);
-        
 
         $this->dom->addChild(
             $cpfCnpj,
@@ -186,8 +172,10 @@ class Make
             "Número CNPJ"
         );
 
+        $this->loteRps->appendChild($cpfCnpj);
+
         $this->dom->addChild(
-            $prestador,
+            $this->loteRps,
             "InscricaoMunicipal",
             trim($std->InscricaoMunicipal),
             true,
@@ -203,6 +191,7 @@ class Make
         );
 
         $this->Competencia->nodeValue = $std->Competencia;
+
     }
 
     public function buildIdentificacaoRps($std)
@@ -318,10 +307,6 @@ class Make
             $this->OptanteSimplesNacional->nodeValue = $std->OptanteSimplesNacional;
         }
 
-        if ($std->InformacoesComplementares != ''){
-
-            $this->InformacoesComplementares->nodeValue = $std->InformacoesComplementares;
-        }
 
         if ($std->IncentivoFiscal != ''){
 
@@ -365,7 +350,7 @@ class Make
             $this->Servico,
             "CodigoCnae",
             trim($std->CodigoCnae),
-            true,
+            false,
             "Código CNAE"
         );
 
@@ -373,14 +358,6 @@ class Make
             $this->Servico,
             "CodigoTributacaoMunicipio",
             trim($std->CodigoTributacaoMunicipio),
-            true,
-            "Código de Tributação"
-        );
-
-        $this->dom->addChild(
-            $this->Servico,
-            "CodigoNbs",
-            trim($std->CodigoNbs),
             false,
             "Código de Tributação"
         );
@@ -397,7 +374,7 @@ class Make
             $this->Servico,
             "CodigoMunicipio",
             trim($std->CodigoMunicipio),
-            false,
+            true,
             ""
         );
 
@@ -419,14 +396,6 @@ class Make
 
         $this->dom->addChild(
             $this->Servico,
-            "IdentifNaoExigibilidade",
-            trim($std->IdentifNaoExigibilidade),
-            false,
-            ""
-        );
-
-        $this->dom->addChild(
-            $this->Servico,
             "MunicipioIncidencia",
             trim($std->MunicipioIncidencia),
             false,
@@ -442,7 +411,7 @@ class Make
         );
     }
 
-       public function buildValores($std)
+    public function buildValores($std)
     {
 
         $this->dom->addChild(
@@ -566,7 +535,7 @@ class Make
         $this->dom->addChild(
             $this->Valores,
             "ValorIss",
-            trim(str_replace('-','',$std->ValorIss)),
+            $std->ValorIss,
             false,
             "Valor monetário.
             Formato: 0.00 (ponto separando casa decimal)
@@ -678,6 +647,7 @@ class Make
             1.000,00 = 1000.00
             1.000,00 = 1000"
         );
+
     }
 
     public function buildPrestador($std)

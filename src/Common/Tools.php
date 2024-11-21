@@ -1,9 +1,9 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET\Common;
+namespace NFePHP\NFSe\Itaperuna\Common;
 
 use NFePHP\Common\Certificate;
-use NFePHP\NFSe\ISSNET\Soap\Soap;
+use NFePHP\NFSe\Itaperuna\Soap\Soap;
 use NFePHP\Common\Validator;
 
 class Tools
@@ -21,6 +21,12 @@ class Tools
 
     protected $canonical = [false, false, null, null];
 
+    public $certificate;
+
+    public $lastResponse;
+
+    public $lastRequest;
+
     public function __construct($configJson, Certificate $certificate)
     {
         $this->pathSchemas = realpath(
@@ -33,13 +39,13 @@ class Tools
 
         if ($this->config->tpAmb == '1') {
 
-            $this->soapUrl = 'https://nfse.issnetonline.com.br/abrasf204/ribeiraopreto/nfse.asmx';
+            $this->soapUrl = 'https://itaperuna.govbr.cloud/NFSe.Portal.Integracao/Services.svc';
 
         } else {
 
             //$this->soapUrl =  'https://abrasf.issnetonline.com.br/webserviceabrasf/homologacao/servicos.asmx';
             // $this->soapUrl = 'https://nfse.issnetonline.com.br/abrasf204/ribeiraopreto/nfse.asmx';
-            $this->soapUrl = 'https://www.issnetonline.com.br/homologaabrasf/webservicenfse204/nfse.asmx';
+            $this->soapUrl = 'http://itaperuna.govbr.cloud/NFSe.Portal.Integracao/Services.svc?singleWsdl';
         }
 
         $this->soap = new Soap($this->certificate);
@@ -59,25 +65,26 @@ class Tools
     public function envelopSOAP($xml, $service)
     {
         $this->xml = '<?xml version="1.0" encoding="utf-8"?>
-        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nfse="http://nfse.abrasf.org.br">
-               <soap:Header/>
-                <soap:Body>
-                    <nfse:' . $service . '>
-                    <nfseCabecMsg>
-                        <cabecalho versao="2.04" xmlns="http://www.abrasf.org.br/nfse.xsd">
-	                        <versaoDados>2.04</versaoDados>
-                        </cabecalho>
-                    </nfseCabecMsg>
-                    <nfseDadosMsg>'.$xml.'</nfseDadosMsg>
-                    </nfse:' . $service . '>
-                </soap:Body>
-            </soap:Envelope>';
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+               <soapenv:Header>
+                    <tem:cabecalho versao="202">
+                        <tem:versaoDados>2.02</tem:versaoDados>
+                    </tem:cabecalho>
+                </soapenv:Header>
+                <soapenv:Body>
+                    <tem:' . $service . '>
+                        <tem:xmlEnvio>' .'<![CDATA[ '. $xml .']]>'.'</tem:xmlEnvio>
+                    </tem:' . $service . '>
+                </soapenv:Body>
+            </soapenv:Envelope>';
 
         return $this->xml;
     }
 
     public function removeStuffs($xml)
     {
+
+        $xml = preg_replace('/ xmlns[^=]*="[^"]*"/i', '', $xml);
 
         if (preg_match('/<s:Body>/', $xml)) {
 
@@ -88,7 +95,12 @@ class Tools
             $xml = substr($xml, 0, strpos($xml, $tag));
         }
 
+
         $xml = trim($xml);
+
+        $xml = html_entity_decode($xml);
+
+        $xml = trim(preg_replace("/<\?xml.*?\?>/", "", $xml));
 
         return $xml;
     }

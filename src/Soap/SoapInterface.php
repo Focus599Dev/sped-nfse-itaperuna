@@ -1,14 +1,14 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET\Soap;
+namespace NFePHP\NFSe\Itaperuna\Soap;
 
 /**
  * @category   NFePHP
- * @package    NFePHP\NFSe\ISSNET\Soap
+ * @package    NFePHP\NFSe\Itaperuna\Soap
  * @copyright  Copyright (c) 2008-2019
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
- * @author     Marlon O. Barbosa <lmarlon.academi at gmail dot com>
- * @link       https://github.com/Focus599Dev/sped-nfsginfe for the canonical source repository
+ * @author     Marlon O. Barbosa <marlon.academi at gmail dot com>
+ * @link       https://github.com/Focus599Dev/sped-nfse-itaperuna for the canonical source repository
  */
 
 use NFePHP\Common\Certificate;

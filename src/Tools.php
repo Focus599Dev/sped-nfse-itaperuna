@@ -1,11 +1,11 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET;
+namespace NFePHP\NFSe\Itaperuna;
 
-use NFePHP\NFSe\ISSNET\Common\Tools as ToolsBase;
-use NFePHP\NFSe\ISSNET\Common\Signer;
+use NFePHP\NFSe\Itaperuna\Common\Tools as ToolsBase;
+use NFePHP\NFSe\Itaperuna\Common\Signer;
 use NFePHP\Common\Strings;
-use NFePHP\NFSe\ISSNET\Make;
+use NFePHP\NFSe\Itaperuna\Make;
 use Mpdf\Mpdf;
 use chillerlan\QRCode\{QRCode, QROptions};
 
@@ -20,7 +20,7 @@ class Tools extends ToolsBase
 
         $service = 'RecepcionarLoteRps';
 
-        $soapAction = 'http://nfse.abrasf.org.br/RecepcionarLoteRps';
+        $soapAction = 'http://tempuri.org/INFSEGeracao/RecepcionarLoteRps';
         
         $xml = Signer::sign(
             $this->certificate,
@@ -46,6 +46,8 @@ class Tools extends ToolsBase
 
         $this->isValid($xml, $xsd);
 
+        $xml = str_replace(array(' xmlns="http://www.abrasf.org.br/nfse.xsd"'), array(''), $xml);
+
         $this->lastRequest = htmlspecialchars_decode($xml);
 
         $request = $this->envelopSOAP($xml, $service);
@@ -64,7 +66,7 @@ class Tools extends ToolsBase
 
         $service = 'CancelarNfse';
 
-        $soapAction = 'http://nfse.abrasf.org.br/CancelarNfse';
+        $soapAction = 'http://tempuri.org/INFSEGeracao/CancelarNfse';
 
         $xml = $make->cancelamento($std);
 
@@ -80,6 +82,8 @@ class Tools extends ToolsBase
         $xsd = 'servico_cancelar_nfse_envio.xsd';
 
         $this->isValid($xml, $xsd);
+
+        $xml = str_replace(array(' xmlns="http://www.abrasf.org.br/nfse.xsd"'), array(''), $xml);
 
         $request = $this->envelopSOAP($xml, $service);
 
@@ -125,7 +129,7 @@ class Tools extends ToolsBase
 
         $service = 'ConsultarNfsePorRps';
 
-        $soapAction = 'http://nfse.abrasf.org.br/ConsultarNfsePorRps';
+        $soapAction = 'http://tempuri.org/INFSEConsultas/ConsultarNfsePorRps';
 
         $xml = $make->consultaNFSePorRPS($indenRPS, $data);
 
@@ -140,7 +144,9 @@ class Tools extends ToolsBase
 
         $xsd = 'servico_consultar_nfse_rps_envio.xsd';
         // XSD do abraf não esta deacordo com exemplo fornecido pelo nota control
-        // $this->isValid($xml, $xsd);
+        $this->isValid($xml, $xsd);
+
+        $xml = str_replace(array(' xmlns="http://www.abrasf.org.br/nfse.xsd"'), array(''), $xml);
 
         $xml = Strings::clearXmlString($xml, true);
 
@@ -160,7 +166,7 @@ class Tools extends ToolsBase
 
         $service = 'ConsultarLoteRps';
 
-        $soapAction = 'http://nfse.abrasf.org.br/ConsultarLoteRps';
+        $soapAction = 'http://tempuri.org/INFSEConsultas/ConsultarLoteRps';
 
         $xml = $make->consultaLoteRPS($nprot, $data);
 
@@ -169,6 +175,8 @@ class Tools extends ToolsBase
         $xsd = 'servico_consultar_lote_rps_envio.xsd';
 
         $this->isValid($xml, $xsd);
+
+        $xml = str_replace(array(' xmlns="http://www.abrasf.org.br/nfse.xsd"'), array(''), $xml);
 
         $this->lastRequest = htmlspecialchars_decode($xml);
 
@@ -246,12 +254,6 @@ class Tools extends ToolsBase
         
         $img = realpath(__DIR__ . '/../template' ) . '/qr.svg';
 
-        $dom = new \DOMDocument();
-        
-        $dom->loadHTML($xml->asXML()); 
-        
-        $xpath = new \DOMXPath($dom);
-
         $replace = array(
             'logo' =>  'data:image/png;base64,' . base64_encode(file_get_contents(realpath(__DIR__ . '/../template') . '/brasao.png')),
             'logoNota' =>  'data:image/jpg;base64,' . base64_encode(file_get_contents(realpath(__DIR__ . '/../template') . '/LogoNotaFiscalEletronica.jpg')),
@@ -267,7 +269,7 @@ class Tools extends ToolsBase
             'nfsnum' => substr($xml->Nfse->InfNfse->Numero, 7),
             'codveri' => $xml->Nfse->InfNfse->CodigoVerificacao,
             'emirazao' => $xml->Nfse->InfNfse->PrestadorServico->RazaoSocial,
-            'emicnpj' => $this->formatCNPJ($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->Prestador->CpfCnpj->Cnpj ?? ''),
+            'emicnpj' => $this->formatCNPJ($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Prestador->CpfCnpj->Cnpj ?? ''),
             'email' => $xml->Nfse->InfNfse->PrestadorServico->Contato->Email,
             'logoPres' => $contentlogoPres,
             'inscMuniEmi' => $xml->Nfse->InfNfse->PrestadorServico->IdentificacaoPrestador->InscricaoMunicipal,
@@ -277,47 +279,47 @@ class Tools extends ToolsBase
             'EnderecoEmi' => $xml->Nfse->InfNfse->PrestadorServico->Endereco->Endereco . ', ' . $xml->Nfse->InfNfse->PrestadorServico->Endereco->Numero . ' Bairro ' . $xml->Nfse->InfNfse->PrestadorServico->Endereco->Bairro ,
             'EnderecoEmiCep' => $xml->Nfse->InfNfse->PrestadorServico->Endereco->Cep,
             'EnderecoEmiCidade' => ' Ribeirão Preto ' . $xml->Nfse->InfNfse->PrestadorServico->Endereco->Estado,
-            'destrazao' => $xml->Nfse->InfNfse->TomadorServico->RazaoSocial,
-            'destCNPJ' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->TomadorServico->IdentificacaoTomador->CpfCnpj->Cnpj) ? $this->formatCNPJ($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->TomadorServico->IdentificacaoTomador->CpfCnpj->Cnpj) : $this->formatCPF($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->TomadorServico->IdentificacaoTomador->CpfCnpj->Cpf),
-            'inscMuniDest' => isset($xml->Nfse->InfNfse->TomadorServico->IdentificacaoTomador->InscricaoMunicipal) ? $xml->Nfse->InfNfse->TomadorServico->IdentificacaoTomador->InscricaoMunicipal : '',
-            'FoneDest' => $xml->Nfse->InfNfse->TomadorServico->Contato->Telefone,
-            'EmailDest' => $xml->Nfse->InfNfse->TomadorServico->Contato->Email,
-            'EnderecoDest' => $xml->Nfse->InfNfse->TomadorServico->Endereco->Endereco,
-            'EnderecoDestComplemento'=> $xml->Nfse->InfNfse->TomadorServico->Endereco->Complemento,
-            'EnderecoDestNumero' =>$xml->Nfse->InfNfse->TomadorServico->Endereco->Numero,
-            'EnderecoDestBairro' => $xml->Nfse->InfNfse->TomadorServico->Endereco->Bairro,
-            'EnderecoDestCep'=> $xml->Nfse->InfNfse->TomadorServico->Endereco->Cep,
-            'EnderecoDestCidade'=> $this->getCidade($xml->Nfse->InfNfse->TomadorServico->Endereco->Cep),
+            'destrazao' =>$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->RazaoSocial,
+            'destCNPJ' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->IdentificacaoTomador->CpfCnpj->Cnpj) ? $this->formatCNPJ($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->IdentificacaoTomador->CpfCnpj->Cpf) : '',
+            'inscMuniDest' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->IdentificacaoTomador->InscricaoMunicipal) ? $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->IdentificacaoTomador->InscricaoMunicipal : '',
+            'FoneDest' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Contato->Telefone,
+            'EmailDest' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Contato->Email,
+            'EnderecoDest' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Endereco->Endereco,
+            'EnderecoDestComplemento'=> $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Endereco->Complemento,
+            'EnderecoDestNumero' =>$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Endereco->Numero,
+            'EnderecoDestBairro' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Endereco->Bairro,
+            'EnderecoDestCep'=> $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Endereco->Cep,
+            'EnderecoDestCidade'=> $this->getCidade($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Tomador->Endereco->Cep),
             'OutrasInformacoes' => $xml->Nfse->InfNfse->OutrasInformacoes,
-            'codTrib' => $xml->Nfse->InfNfse->Servico->CodigoTributacaoMunicipio,
-            'textCodeTrib' => isset($codeTrib[(string)$xml->Nfse->InfNfse->Servico->CodigoTributacaoMunicipio]) ? $codeTrib[(string)$xml->Nfse->InfNfse->Servico->CodigoTributacaoMunicipio] : '',
-            'vPIS' => isset($xml->Nfse->InfNfse->Servico->Valores->ValorPis) ? number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorPis, 2, ',', '.') : '0,00',
-            'vCOFINS' => isset($xml->Nfse->InfNfse->Servico->Valores->ValorCofins) ? number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorCofins, 2, ',', '.') : '0,00',
-            'vINSS' => isset($xml->Nfse->InfNfse->Servico->Valores->ValorInss) ? number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorInss, 2, ',', '.') : '0,00',
-            'vIR' => isset($xml->Nfse->InfNfse->Servico->Valores->ValorIr) ? number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorIr, 2, ',', '.') : '0,00',
-            'vCSLL' => isset($xml->Nfse->InfNfse->Servico->Valores->ValorCsll) ? number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorCsll, 2, ',', '.') : '0,00',
+            'codTrib' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->CodigoTributacaoMunicipio,
+            'textCodeTrib' => isset($codeTrib[(string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->CodigoTributacaoMunicipio]) ? $codeTrib[(string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->CodigoTributacaoMunicipio] : '',
+            'vPIS' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorPis) ? number_format((string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorPis, 2, ',', '.') : '0,00',
+            'vCOFINS' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorCofins) ? number_format((string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorCofins, 2, ',', '.') : '0,00',
+            'vINSS' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorInss) ? number_format((string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorInss, 2, ',', '.') : '0,00',
+            'vIR' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorIr) ? number_format((string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorIr, 2, ',', '.') : '0,00',
+            'vCSLL' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorCsll) ? number_format((string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorCsll, 2, ',', '.') : '0,00',
             'vOthers' => '0,00',
-            'Discriminacao' => $xml->Nfse->InfNfse->Servico->Discriminacao,
-            'IssRetido'=> $xml->Nfse->InfNfse->Servico->Valores->IssRetido == 1 ? 'Sim' : 'Não' ,
-            'valorServ' => number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorServicos, 2, ',', '.'),
+            'Discriminacao' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Discriminacao,
+            'IssRetido'=> $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->IssRetido == 1 ? 'Sim' : 'Não' ,
+            'valorServ' => number_format((string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorServicos, 2, ',', '.'),
             'valorDedu' => '0,00',
             'valorIncod' => '0,00',
-            'valorBasecalc' => number_format((string)$xml->Nfse->InfNfse->Servico->Valores->BaseCalculo, 2, ',', '.'),
-            'Aliquota' => number_format(((float)$xml->Nfse->InfNfse->Servico->Valores->Aliquota), 2, ',', '.'),
-            'valorISS' => number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorIss, 2, ',', '.'),
-            'valorISSR' => isset($xml->Nfse->InfNfse->Servico->Valores->ValorIssRetido) ? number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorIssRetido, 2, ',', '.') : '0,00',
-            'valorPis' => number_format(((float)$xml->Nfse->InfNfse->Servico->Valores->ValorPis), 2, ',', '.'),
-            'valorConfins' =>number_format(((float)$xml->Nfse->InfNfse->Servico->Valores->ValorCofins), 2, ',', '.'),
-            'valorInss' => number_format(((float)$xml->Nfse->InfNfse->Servico->Valores->ValorInss), 2, ',', '.'),
-            'valorIrrf' => number_format(((float)$xml->Nfse->InfNfse->Servico->Valores->ValorIr), 2, ',', '.'),
-            'valorCsll' => number_format(((float)$xml->Nfse->InfNfse->Servico->Valores->ValorCsll), 2, ',', '.'),
+            'valorBasecalc' => number_format((string)$xml->Nfse->InfNfse->ValoresNfse->BaseCalculo, 2, ',', '.'),
+            'Aliquota' => number_format(((float)$xml->Nfse->InfNfse->ValoresNfse->Aliquota), 2, ',', '.'),
+            'valorISS' => number_format((string)$xml->Nfse->InfNfse->ValoresNfse->ValorIss, 2, ',', '.'),
+            'valorISSR' => isset($xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorIssRetido) ? number_format((string)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorIssRetido, 2, ',', '.') : '0,00',
+            'valorPis' => number_format(((float)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorPis), 2, ',', '.'),
+            'valorConfins' =>number_format(((float)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorCofins), 2, ',', '.'),
+            'valorInss' => number_format(((float)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorInss), 2, ',', '.'),
+            'valorIrrf' => number_format(((float)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorIr), 2, ',', '.'),
+            'valorCsll' => number_format(((float)$xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->Valores->ValorCsll), 2, ',', '.'),
             'valorCond' => '0,00',
-            'valorLiquido' => number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorLiquidoNfse, 2, ',', '.'),
-            'valorTotal' => number_format((string)$xml->Nfse->InfNfse->Servico->Valores->ValorLiquidoNfse, 2, ',', '.'),
+            'valorLiquido' => number_format((float)$xml->Nfse->InfNfse->ValoresNfse->ValorLiquidoNfse, 2, ',', '.'),
+            'valorTotal' => number_format((float)$xml->Nfse->InfNfse->ValoresNfse->ValorLiquidoNfse, 2, ',', '.'),
             'OutrosR' => '0,00',
             'img' => $img,
-            'CodigoCnae' => $xml->Nfse->InfNfse->Servico->CodigoCnae,
-            'ItemListaServico' => $xml->Nfse->InfNfse->Servico->ItemListaServico
+            'CodigoCnae' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->CodigoCnae ?? '',
+            'ItemListaServico' => $xml->Nfse->InfNfse->DeclaracaoPrestacaoServico->InfDeclaracaoPrestacaoServico->Servico->ItemListaServico
         );
 
         foreach ($replace as $key => $value) {
@@ -355,41 +357,4 @@ class Tools extends ToolsBase
         return null;
     }
 
-    public function ConsultarUrlNfse($NumeroNfse, $data)
-    {
-
-        $make = new Make();
-
-        $service = 'ConsultarUrlNfse';
-
-        $soapAction = 'http://nfse.abrasf.org.br/ConsultarUrlNfse';
-
-        $xml = $make->ConsultarUrlNfseEnvio($NumeroNfse, $data);
-
-        $xml = Signer::sign(
-            $this->certificate,
-            $xml,
-            'ConsultarUrlNfseEnvio',
-            'Id',
-            $this->algorithm,
-            $this->canonical
-        );
-
-        $xml = Strings::clearXmlString($xml, true);
-
-        // Nota control não tem xsd para esse serviço
-        // $xsd = 'servico_consultar_lote_rps_envio.xsd';
-
-        // $this->isValid($xml, $xsd);
-
-        $this->lastRequest = htmlspecialchars_decode($xml);
-
-        $request = $this->envelopSOAP($xml, $service);
-
-        $response = $this->sendRequest($this->soapUrl, $soapAction, 'ConsultarLoteRps', 3, [], [], $request);
-
-        $response = $this->removeStuffs($response);
-
-        return $response;
-    }
 }

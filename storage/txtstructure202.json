@@ -1,6 +1,6 @@
 {
     "NOTAFISCAL": "NOTAFISCAL|1|",
-    "A": "A|NumeroLote|3.0.1||MesCompetencia|AnoCompetencia|Competencia|",
+    "A": "A|NumeroLote|2.02||MesCompetencia|AnoCompetencia|Competencia|",
     "B": "B|Cnpj|InscricaoMunicipal|QuantidadeRps|",
     "C": "C|Cnpj|InscricaoMunicipal|",
     "E": "E|RazaoSocial|Endereco|Contato|Telefone|Email|Numero|Complemento|Bairro|CodigoMunicipio|Uf|Cep|Prefixo|",
@@ -11,7 +11,7 @@
     "H01": "H01|Numero|Serie|Tipo|",
     "I02": "I02|Numero|Serie|Tipo|",
     "M": "M|ValorServicos|ValorDeducoes|ValorPis|ValorCofins|ValorInss|ValorIr|ValorCsll|IssRetido|ValorIss|ValorIssRetido|ValorOutrasRetencoes|BaseCalculo|Aliquota|ValorLiquidoNfse|DescontoIncondicionado|AliquotaAtributos|DescontoCondicionado|Deducao|Imposto|Observacao|DataVencimento|ContraApresentacao|",
-    "N": "N|ItemListaServico|CodigoCnae|CodigoTributacaoMunicipio|Discriminacao|CodigoMunicipio|ValorIcms|ValorIpi|ValorIof|ValorCide|ValorOutrosTributos|Codigo|ValorUnit|Quantidade|Desconto|ResponsavelRetencao|CodigoNbs|CodigoPais|ExigibilidadeISS|IdentifNaoExigibilidade|MunicipioIncidencia|NumeroProcesso|",
+    "N": "N|ResponsavelRetencao|ItemListaServico|CodigoCnae|CodigoTributacaoMunicipio|Discriminacao|CodigoMunicipio|CodigoPais|ExigibilidadeISS|MunicipioIncidencia|NumeroProcesso|",
     "N01": "N01|MatDescricao|MatValorUnit|MatQuantidade|MatNota|MatCpfCnpj|DeduMateriais|",
     "W": "W|DataEmissao|NaturezaOperacao|RegimeEspecialTributacao|OptanteSimplesNacional|IncentivadorCultural|Status|InformacoesComplementares|IncentivoFiscal|"
 }

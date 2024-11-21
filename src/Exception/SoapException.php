@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET\Exception;
+namespace NFePHP\NFSe\Itaperuna\Exception;
 
 class SoapException extends \RuntimeException implements ExceptionInterface
 {

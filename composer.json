@@ -5,7 +5,7 @@
     "sped",
     "nfephp"
   ],
-  "homepage": "https://github.com/Focus599Dev/sped-nfse-issnet",
+  "homepage": "https://github.com/Focus599Dev/sped-nfse-Itaperuna",
   "license": [
     "LGPL-3.0-or-later",
     "GPL-3.0-or-later",
@@ -15,7 +15,7 @@
     {
       "name": "Marlon Oliveira Barbosa",
       "email": "marlon.academi@gmail.com",
-      "homepage": "https://github.com/Focus599Dev/sped-nfse-issnet",
+      "homepage": "https://github.com/Focus599Dev/sped-nfse-Itaperuna",
       "role": "Developer"
     }
   ],
@@ -34,12 +34,12 @@
   },
   "autoload": {
     "psr-4": {
-      "NFePHP\\NFSe\\ISSNET\\": "src/"
+      "NFePHP\\NFSe\\Itaperuna\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "NFePHP\\NFSe\\ISSNET\\Tests\\": "tests/"
+      "NFePHP\\NFSe\\Itaperuna\\Tests\\": "tests/"
     }
   },
   "scripts": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET\Common;
+namespace NFePHP\NFSe\Itaperuna\Common;
 
 use NFePHP\Common\Certificate;
 use NFePHP\Common\Certificate\PublicKey;

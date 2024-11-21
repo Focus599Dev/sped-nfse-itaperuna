@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSe\ISSNET\Exception;
+namespace NFePHP\NFSe\Itaperuna\Exception;
 
 class RuntimeException extends \RuntimeException implements ExceptionInterface
 { }

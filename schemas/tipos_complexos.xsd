@@ -3,114 +3,117 @@
 	<xsd:include schemaLocation="tipos_simples.xsd"/>
 	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema20020212.xsd"/>
 	<!-- definition of complex elements -->
+
 	<xsd:complexType name="tcCpfCnpj">
 		<xsd:choice>
-			<xsd:element name="Cpf" type="tsCpf" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Cnpj" type="tsCnpj" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Cpf" type="tsCpf" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="Cnpj" type="tsCnpj" minOccurs="1"
+				maxOccurs="1" />
 		</xsd:choice>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcEndereco">
 		<xsd:sequence>
-			<xsd:element name="Endereco" type="tsEndereco" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Endereco" type="tsEndereco" minOccurs="0"
+				maxOccurs="1" />
 			<xsd:element name="Numero" type="tsNumeroEndereco"
-				minOccurs="1" maxOccurs="1" />
+				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="Complemento" type="tsComplementoEndereco"
 				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="Bairro" type="tsBairro" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Bairro" type="tsBairro" minOccurs="0"
+				maxOccurs="1" />
 			<xsd:element name="CodigoMunicipio" type="tsCodigoMunicipioIbge"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Uf" type="tsUf" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Cep" type="tsCep" 
-				minOccurs="1" maxOccurs="1" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcEnderecoExterior">
-		<xsd:sequence>
-			<xsd:element name="CodigoPais" type="tsCodigoPaisIbge"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="EnderecoCompletoExterior" type="tsEnderecoCompletoExterior" 
-				minOccurs="1" maxOccurs="1" />
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Uf" type="tsUf" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="CodigoPais" type="tsCodigoPaisBacen"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Cep" type="tsCep" minOccurs="0"
+				maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcContato">
-		<xsd:choice minOccurs="1" maxOccurs="1">
-		  <xsd:sequence minOccurs="1" maxOccurs="1">
-		    <xsd:element name="Telefone" type="tsTelefone" 
-				minOccurs="1" maxOccurs="1" />
-		    <xsd:element name="Email" type="tsEmail" 
-				minOccurs="0" maxOccurs="1" />
-		  </xsd:sequence>
-		  <xsd:sequence >
-		    <xsd:element name="Email" type="tsEmail" 
-				minOccurs="1" maxOccurs="1" />
-		  </xsd:sequence>
-		</xsd:choice>
+		<xsd:sequence>
+			<xsd:element name="Telefone" type="tsTelefone" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="Email" type="tsEmail" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcIdentificacaoOrgaoGerador">
 		<xsd:sequence>
 			<xsd:element name="CodigoMunicipio" type="tsCodigoMunicipioIbge"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Uf" type="tsUf" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Uf" type="tsUf" minOccurs="1"
+				maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcIdentificacaoRps">
 		<xsd:sequence>
-			<xsd:element name="Numero" type="tsNumeroRps" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Serie" type="tsSerieRps" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Tipo" type="tsTipoRps" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Numero" type="tsNumeroRps" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="Serie" type="tsSerieRps" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="Tipo" type="tsTipoRps" minOccurs="1"
+				maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="tcIdentificacaoPessoaEmpresa">
+	<xsd:complexType name="tcIdentificacaoPrestador">
 		<xsd:sequence>
-			<xsd:element name="CpfCnpj" type="tcCpfCnpj" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="CpfCnpj" type="tcCpfCnpj" minOccurs="0"
+				maxOccurs="1" />
 			<xsd:element name="InscricaoMunicipal" type="tsInscricaoMunicipal"
 				minOccurs="0" maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
+	<xsd:complexType name="tcIdentificacaoTomador">
+		<xsd:sequence>
+			<xsd:element name="CpfCnpj" type="tcCpfCnpj" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="InscricaoMunicipal" type="tsInscricaoMunicipal"
+				minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="tcIdentificacaoConsulente">
+		<xsd:sequence>
+			<xsd:element name="CpfCnpj" type="tcCpfCnpj" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="InscricaoMunicipal" type="tsInscricaoMunicipal"
+				minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="tcIdentificacaoIntermediario">
+        	<xsd:sequence>
+       	     		<xsd:element name="CpfCnpj" type="tcCpfCnpj" minOccurs="0" maxOccurs="1"/>
+            		<xsd:element name="InscricaoMunicipal" type="tsInscricaoMunicipal" minOccurs="0" maxOccurs="1"/>
+        	</xsd:sequence>
+    	</xsd:complexType>
+
 	<xsd:complexType name="tcDadosTomador">
 		<xsd:sequence>
-			<xsd:element name="IdentificacaoTomador" type="tcIdentificacaoPessoaEmpresa"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="NifTomador" type="tsNif"
+			<xsd:element name="IdentificacaoTomador" type="tcIdentificacaoTomador"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="RazaoSocial" type="tsRazaoSocial"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:choice minOccurs="0">
-				<xsd:element name="Endereco" type="tcEndereco" 
-					minOccurs="1" maxOccurs="1" />
-				<xsd:element name="EnderecoExterior" type="tcEnderecoExterior" 
-					minOccurs="1" maxOccurs="1" />
-			</xsd:choice>
-			<xsd:element name="Contato" type="tcContato" 
 				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Endereco" type="tcEndereco" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="Contato" type="tcContato" minOccurs="0"
+				maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
     <xsd:complexType name="tcDadosIntermediario">
         <xsd:sequence>
-            <xsd:element name="IdentificacaoIntermediario" type="tcIdentificacaoPessoaEmpresa" 
-				minOccurs="1" maxOccurs="1"/>
-            <xsd:element name="RazaoSocial" type="tsRazaoSocial" 
-				minOccurs="1" maxOccurs="1"/>
-	    <xsd:element name="CodigoMunicipio" type="tsCodigoMunicipioIbge" 
-				minOccurs="1" maxOccurs="1" />
+            <xsd:element name="IdentificacaoIntermediario" type="tcIdentificacaoIntermediario" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="RazaoSocial" type="tsRazaoSocial" minOccurs="1" maxOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -120,24 +123,22 @@
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="ValorDeducoes" type="tsValor"
 				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValorPis" type="tsValor" 
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValorCofins" type="tsValor" 
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValorInss" type="tsValor" 
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValorIr" type="tsValor" 
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValorCsll" type="tsValor" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="ValorPis" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="ValorCofins" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="ValorInss" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="ValorIr" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="ValorCsll" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
 			<xsd:element name="OutrasRetencoes" type="tsValor"
 				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValTotTributos" type="tsValor"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValorIss" type="tsValor" 
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="Aliquota" type="tsAliquota" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="ValorIss" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="Aliquota" type="tsAliquota" minOccurs="0"
+				maxOccurs="1" />
 			<xsd:element name="DescontoIncondicionado" type="tsValor"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="DescontoCondicionado" type="tsValor"
@@ -147,189 +148,79 @@
 
 	<xsd:complexType name="tcValoresNfse">
 		<xsd:sequence>
-			<xsd:element name="BaseCalculo" type="tsValor" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Aliquota" type="tsAliquota" 
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="ValorIss" type="tsValor" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="BaseCalculo" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="Aliquota" type="tsAliquota" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="ValorIss" type="tsValor" minOccurs="0"
+				maxOccurs="1" />
 			<xsd:element name="ValorLiquidoNfse" type="tsValor"
 				minOccurs="1" maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
-	
+
 	<xsd:complexType name="tcDadosServico">
 		<xsd:sequence>
-			<xsd:element name="Valores" type="tcValoresDeclaracaoServico" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="IssRetido" type="tsSimNao" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="ResponsavelRetencao" type="tsResponsavelRetencao" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="Valores" type="tcValoresDeclaracaoServico" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="IssRetido" type="tsSimNao" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="ResponsavelRetencao" type="tsResponsavelRetencao" minOccurs="0"
+				maxOccurs="1" />
 			<xsd:element name="ItemListaServico" type="tsItemListaServico"
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="CodigoCnae" type="tsCodigoCnae"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="CodigoTributacaoMunicipio" type="tsCodigoTributacao"
 				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="CodigoNbs" type="tsCodigoNbs"
-				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="Discriminacao" type="tsDiscriminacao"
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="CodigoMunicipio" type="tsCodigoMunicipioIbge"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="CodigoPais" type="tsCodigoPaisIbge"
+			<xsd:element name="CodigoPais" type="tsCodigoPaisBacen"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="ExigibilidadeISS" type="tsExigibilidadeISS"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="IdentifNaoExigibilidade" type="tsIdentifNaoExigibilidade"
-				minOccurs="0" maxOccurs="1" />		
 			<xsd:element name="MunicipioIncidencia" type="tsCodigoMunicipioIbge"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="NumeroProcesso" type="tsNumeroProcesso"
 				minOccurs="0" maxOccurs="1" />
+
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcDadosConstrucaoCivil">
-		<xsd:choice minOccurs="1" maxOccurs="1">
-		  <xsd:sequence minOccurs="1" maxOccurs="1">
-		    <xsd:element name="CodigoObra" type="tsCodigoObra" 
-				minOccurs="1" maxOccurs="1" />
-		    <xsd:element name="Art" type="tsArt" 
+		<xsd:sequence>
+			<xsd:element name="CodigoObra" type="tsCodigoObra"
 				minOccurs="0" maxOccurs="1" />
-		  </xsd:sequence>
-		  <xsd:sequence >
-		    <xsd:element name="Art" type="tsArt" 
-				minOccurs="1" maxOccurs="1" />
-		  </xsd:sequence>
-		</xsd:choice>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcEvento">
-		<xsd:choice minOccurs="1" maxOccurs="1">
-		  <xsd:sequence minOccurs="1" maxOccurs="1">
-		    <xsd:element name="IdentificacaoEvento" type="tsIdentificacaoEvento" 
-				minOccurs="1" maxOccurs="1" />
-		    <xsd:element name="DescricaoEvento" type="tsDescricaoEvento" 
-				minOccurs="0" maxOccurs="1" />
-		  </xsd:sequence>
-		  <xsd:sequence >
-		    <xsd:element name="DescricaoEvento" type="tsDescricaoEvento" 
-				minOccurs="1" maxOccurs="1" />
-		  </xsd:sequence>
-		</xsd:choice>
+			<xsd:element name="Art" type="tsArt" minOccurs="1"
+				maxOccurs="1" />
+		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcDadosPrestador">
 		<xsd:sequence>
+			<xsd:element name="IdentificacaoPrestador" type="tcIdentificacaoPrestador"
+				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="RazaoSocial" type="tsRazaoSocial"
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="NomeFantasia" type="tsNomeFantasia"
 				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="Endereco" type="tcEndereco" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Contato" type="tcContato" 
-				minOccurs="0" maxOccurs="1" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcIdentificacaoNfseDeducao">
-		<xsd:sequence>
-			<xsd:element name="CodigoMunicipioGerador" type="tsCodigoMunicipioIbge"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="NumeroNfse" type="tsNumeroNfse"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="CodigoVerificacao" type="tsCodigoVerificacao" 
-				minOccurs="0" maxOccurs="1" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcIdentificacaoNfeDeducao">
-		<xsd:sequence>
-			<xsd:element name="NumeroNfe" type="tsNumeroNfe"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="UfNfe" type="tsUf"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="ChaveAcessoNfe" type="tsChaveAcessoNfe" 
-				minOccurs="0" maxOccurs="1" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcOutroDocumentoDeducao">
-		<xsd:sequence>
-			<xsd:element name="IdentificacaoDocumento" type="tsIdentificacaoDocumento"
-				minOccurs="1" maxOccurs="1" />
-		</xsd:sequence>
-	</xsd:complexType>
-	
-	<xsd:complexType name="tcIdentificacaoDocumentoDeducao">
-		<xsd:sequence>
-			<xsd:choice>
-				<xsd:element name="IdentificacaoNfse" type="tcIdentificacaoNfseDeducao" 
-					minOccurs="1" maxOccurs="1" />
-				<xsd:element name="IdentificacaoNfe" type="tcIdentificacaoNfeDeducao" 
-					minOccurs="1" maxOccurs="1" />
-				<xsd:element name="OutroDocumento" type="tcOutroDocumentoDeducao" 
-					minOccurs="1" maxOccurs="1" />
-			</xsd:choice>
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcIdentificacaoFornecedor">
-		<xsd:sequence>
-			<xsd:element name="CpfCnpj" type="tcCpfCnpj"
-				minOccurs="1" maxOccurs="1" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcFornecedorExterior">
-		<xsd:sequence>
-			<xsd:element name="NifFornecedor" type="tsNif"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="CodigoPais" type="tsCodigoPaisIbge"
-				minOccurs="1" maxOccurs="1" />
-		</xsd:sequence>
-	</xsd:complexType>
-
-	<xsd:complexType name="tcDadosFornecedor">
-		<xsd:sequence>
-			<xsd:choice>
-				<xsd:element name="IdentificacaoFornecedor" type="tcIdentificacaoFornecedor" 
-					minOccurs="1" maxOccurs="1" />
-				<xsd:element name="FornecedorExterior" type="tcFornecedorExterior" 
-					minOccurs="1" maxOccurs="1" />
-			</xsd:choice>
-		</xsd:sequence>
-	</xsd:complexType>
-	
-	<xsd:complexType name="tcDadosDeducao">
-		<xsd:sequence>
-			<xsd:element name="TipoDeducao" type="tsTipoDeducao"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="DescricaoDeducao" type="tsDescricaoDeducao"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="IdentificacaoDocumentoDeducao" type="tcIdentificacaoDocumentoDeducao"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="DadosFornecedor" type="tcDadosFornecedor"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="DataEmissao" type="xsd:date"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="ValorDedutivel" type="tsValor"
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="ValorUtilizadoDeducao" type="tsValor"
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Endereco" type="tcEndereco" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="Contato" type="tcContato" minOccurs="0"
+				maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcInfRps">
 		<xsd:sequence>
 			<xsd:element name="IdentificacaoRps" type="tcIdentificacaoRps"
-				minOccurs="0" maxOccurs="1" />
+				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="DataEmissao" type="xsd:date"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Status" type="tsStatusRps" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Status" type="tsStatusRps" minOccurs="1"
+				maxOccurs="1" />
 			<xsd:element name="RpsSubstituido" type="tcIdentificacaoRps"
 				minOccurs="0" maxOccurs="1" />
 		</xsd:sequence>
@@ -344,9 +235,9 @@
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="Servico" type="tcDadosServico"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa"
+			<xsd:element name="Prestador" type="tcIdentificacaoPrestador"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="TomadorServico" type="tcDadosTomador"
+			<xsd:element name="Tomador" type="tcDadosTomador"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="Intermediario" type="tcDadosIntermediario"
 				minOccurs="0" maxOccurs="1" />
@@ -358,31 +249,25 @@
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="IncentivoFiscal" type="tsSimNao"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Evento" type="tcEvento"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="InformacoesComplementares" type="tsInformacoesComplementares"
-				minOccurs="0" maxOccurs="1" />
-			<xsd:element name="Deducao" type="tcDadosDeducao"
-				minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
 		<xsd:attribute name="Id" type="tsIdTag" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tcDeclaracaoPrestacaoServico">
 		<xsd:sequence>
-			<xsd:element name="InfDeclaracaoPrestacaoServico" type="tcInfDeclaracaoPrestacaoServico" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element ref="dsig:Signature" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="InfDeclaracaoPrestacaoServico" type="tcInfDeclaracaoPrestacaoServico" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element ref="dsig:Signature" minOccurs="0"
+				maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="tcIdentificacaoNfse">
 		<xsd:sequence>
-			<xsd:element name="Numero" type="tsNumeroNfse" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="CpfCnpj" type="tcCpfCnpj" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Numero" type="tsNumeroNfse" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="CpfCnpj" type="tcCpfCnpj" minOccurs="1"
+				maxOccurs="1" />
 			<xsd:element name="InscricaoMunicipal" type="tsInscricaoMunicipal"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="CodigoMunicipio" type="tsCodigoMunicipioIbge"
@@ -392,8 +277,8 @@
 
 	<xsd:complexType name="tcInfNfse">
 		<xsd:sequence>
-			<xsd:element name="Numero" type="tsNumeroNfse" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Numero" type="tsNumeroNfse" minOccurs="1"
+				maxOccurs="1" />
 			<xsd:element name="CodigoVerificacao" type="tsCodigoVerificacao"
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="DataEmissao" type="xsd:dateTime"
@@ -404,26 +289,23 @@
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="ValoresNfse" type="tcValoresNfse"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="DescricaoCodigoTributacaoMunicípio" type="tsDescricaoCodigoTributacaoMunicípio"
-				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="ValorCredito" type="tsValor"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="PrestadorServico" type="tcDadosPrestador"
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="OrgaoGerador" type="tcIdentificacaoOrgaoGerador"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="DeclaracaoPrestacaoServico" type="tcDeclaracaoPrestacaoServico" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="DeclaracaoPrestacaoServico" type="tcDeclaracaoPrestacaoServico" minOccurs="1" maxOccurs="1" />
 		</xsd:sequence>
 		<xsd:attribute name="Id" type="tsIdTag" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tcNfse">
 		<xsd:sequence>
-			<xsd:element name="InfNfse" type="tcInfNfse" 
-				minOccurs="1" maxOccurs="1" />
-			<xsd:element ref="dsig:Signature" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="InfNfse" type="tcInfNfse" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element ref="dsig:Signature" minOccurs="0"
+				maxOccurs="1" />
 		</xsd:sequence>
 		<xsd:attribute name="versao" type="tsVersao" use="required" />
 	</xsd:complexType>
@@ -433,7 +315,7 @@
 			<xsd:element name="IdentificacaoNfse" type="tcIdentificacaoNfse"
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="CodigoCancelamento" type="tsCodigoCancelamentoNfse"
-				minOccurs="1" maxOccurs="1" />
+				minOccurs="0" maxOccurs="1" />
 		</xsd:sequence>
 		<xsd:attribute name="Id" type="tsIdTag" />
 	</xsd:complexType>
@@ -442,8 +324,8 @@
 		<xsd:sequence>
 			<xsd:element name="InfPedidoCancelamento" type="tcInfPedidoCancelamento"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element ref="dsig:Signature" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="dsig:Signature" minOccurs="0"
+				maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
@@ -461,18 +343,19 @@
 		<xsd:sequence>
 			<xsd:element name="Confirmacao" type="tcConfirmacaoCancelamento"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element ref="dsig:Signature" 
-				minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="dsig:Signature" minOccurs="0"
+				maxOccurs="1" />
 		</xsd:sequence>
 		<xsd:attribute name="versao" type="tsVersao" use="required" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tcRetCancelamento">
 		<xsd:sequence>
-			<xsd:element name="NfseCancelamento" type="tcCancelamentoNfse" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="NfseCancelamento" type="tcCancelamentoNfse" minOccurs="1" maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
+
+
 
 	<xsd:complexType name="tcInfSubstituicaoNfse">
 		<xsd:sequence>
@@ -486,16 +369,16 @@
 		<xsd:sequence>
 			<xsd:element name="SubstituicaoNfse" type="tcInfSubstituicaoNfse"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element ref="dsig:Signature" 
-				minOccurs="0" maxOccurs="2" />
+			<xsd:element ref="dsig:Signature" minOccurs="0"
+				maxOccurs="2" />
 		</xsd:sequence>
 		<xsd:attribute name="versao" type="tsVersao" use="required" />
 	</xsd:complexType>
 
 	<xsd:complexType name="tcCompNfse">
 		<xsd:sequence>
-			<xsd:element name="Nfse" type="tcNfse" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Nfse" type="tcNfse" minOccurs="1"
+				maxOccurs="1" />
 			<xsd:element name="NfseCancelamento" type="tcCancelamentoNfse"
 				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="NfseSubstituicao" type="tcSubstituicaoNfse"
@@ -510,7 +393,7 @@
 			<xsd:element name="Mensagem" type="tsDescricaoMensagemAlerta"
 				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="Correcao" type="tsDescricaoMensagemAlerta"
-				minOccurs="0" maxOccurs="1" />
+				minOccurs="0" />
 		</xsd:sequence>
 	</xsd:complexType>
 
@@ -529,12 +412,13 @@
 		<xsd:sequence>
 			<xsd:element name="NumeroLote" type="tsNumeroLote"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" 
-				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="CpfCnpj" type="tcCpfCnpj" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="InscricaoMunicipal" type="tsInscricaoMunicipal"
+				minOccurs="0" maxOccurs="1" />
 			<xsd:element name="QuantidadeRps" type="tsQuantidadeRps"
 				minOccurs="1" maxOccurs="1" />
-			<xsd:element name="ListaRps" 
-				minOccurs="1" maxOccurs="1">
+			<xsd:element name="ListaRps" minOccurs="1" maxOccurs="1">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="Rps" type="tcDeclaracaoPrestacaoServico"
@@ -547,5 +431,4 @@
 		<xsd:attribute name="Id" type="tsIdTag" />
 		<xsd:attribute name="versao" type="tsVersao" use="required" />
 	</xsd:complexType>
-
 </xsd:schema>
