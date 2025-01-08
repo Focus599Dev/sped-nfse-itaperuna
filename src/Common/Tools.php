@@ -39,7 +39,7 @@ class Tools
 
         if ($this->config->tpAmb == '1') {
 
-            $this->soapUrl = 'https://itaperuna.govbr.cloud/NFSe.Portal.Integracao/Services.svc';
+            $this->soapUrl = 'http://itaperuna.govbr.cloud/NFSe.Portal.Integracao/Services.svc?singleWsdl';
 
         } else {
 
