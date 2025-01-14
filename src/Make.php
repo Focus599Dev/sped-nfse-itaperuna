@@ -157,7 +157,7 @@ class Make
         $this->dom->addChild(
             $this->loteRps,
             "NumeroLote",
-            $std->NumeroLote,
+            ltrim($std->NumeroLote) . $this->random_digits( 15 - strlen(ltrim($std->NumeroLote) ) ),
             true,
             "Número do Lote de RPS"
         );
@@ -583,7 +583,7 @@ class Make
             $this->dom->addChild(
                 $this->Valores,
                 "Aliquota",
-                trim($std->Aliquota * 100),
+                trim($std->Aliquota),
                 false,
                 "Alíquota. Valor percentual.
                 Formato: 0.0000
@@ -1208,5 +1208,15 @@ class Make
 
         return $this->xml;
 
+    }
+
+    private function random_digits($length) {
+        $result = '';
+    
+        for ($i = 0; $i < $length; $i++) {
+            $result .= random_int(0, 9);
+        }
+    
+        return $result;
     }
 }
