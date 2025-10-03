@@ -18,9 +18,9 @@ class Tools extends ToolsBase
             throw new InvalidArgumentException('$xml');
         }
 
-        $service = 'RecepcionarLoteRps';
+        $service = 'EnviarLoteRpsSincrono';
 
-        $soapAction = 'http://tempuri.org/INFSEGeracao/RecepcionarLoteRps';
+        $soapAction = 'http://tempuri.org/INFSEGeracao/EnviarLoteRpsSincrono';
         
         $xml = Signer::sign(
             $this->certificate,
@@ -52,7 +52,7 @@ class Tools extends ToolsBase
 
         $request = $this->envelopSOAP($xml, $service);
 
-        $response = $this->sendRequest($this->soapUrl, $soapAction, 'RecepcionarLoteRps', 3, [], [], $request);
+        $response = $this->sendRequest($this->soapUrl, $soapAction, 'EnviarLoteRpsSincrono', 3, [], [], $request);
 
         $response = $this->removeStuffs($response);
 
