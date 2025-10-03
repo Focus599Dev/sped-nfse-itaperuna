@@ -12,7 +12,7 @@
 			<xsd:sequence>
 				<xsd:element name="IdentificacaoRps" type="tcIdentificacaoRps"
 					minOccurs="1" maxOccurs="1" />
-				<xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa"
+				<xsd:element name="Prestador" type="tcIdentificacaoPrestador"
 					minOccurs="1" maxOccurs="1" />
 			</xsd:sequence>
 		</xsd:complexType>
