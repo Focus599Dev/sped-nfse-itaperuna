@@ -913,8 +913,6 @@ class Make
         $this->dom->formatOutput = false;
 
         $req = $this->dom->createElement('ConsultarNfseRpsEnvio');
-
-        $Pedido = $this->dom->createElement('Pedido');
         
         $req->setAttribute('xmlns', 'http://www.abrasf.org.br/nfse.xsd');
         
@@ -944,7 +942,7 @@ class Make
             "Tipo RPS"
         );
 
-        $Pedido->appendChild($identificacaoRps);
+        $req->appendChild($identificacaoRps);
         
         $prestador = $this->dom->createElement('Prestador');
 
@@ -969,9 +967,7 @@ class Make
         );
         
 
-        $Pedido->appendChild($prestador);
-
-        $req->appendChild($Pedido);
+        $req->appendChild($prestador);
 
         $this->dom->appendChild($req);
 
