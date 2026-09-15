@@ -17,9 +17,6 @@ class Soap extends SoapBase{
         $request = '',
         $soapheader = null
     ) {
-
-        // $this->validadeEf();
-
         $headers = array(
             "Content-type: text/xml;charset=\"utf-8\"",
             "Accept: text/xml",
